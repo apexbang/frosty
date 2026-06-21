@@ -1,0 +1,50 @@
+# OFFL-01: deploy the static PWA to GitHub Pages (free HTTPS host) on every push to
+# master. The Actions Pages pipeline does NOT run Jekyll, so the SvelteKit `_app/` dir
+# ships as-is (no .nojekyll needed). BASE_PATH=/frosty drives kit.paths.base AND the PWA
+# manifest scope/start_url — keep it in sync with the repo name if the repo is renamed.
+name: Deploy PWA to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+# Least-privilege token scoped for Pages deployment via OIDC.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One live deploy at a time; cancel superseded in-progress runs.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build (subpath base for project Pages site)
+        run: npm run build
+        env:
+          BASE_PATH: /frosty
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

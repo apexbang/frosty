@@ -1,0 +1,66 @@
+/*
+  Dark-first global design tokens — plain CSS (no Tailwind).
+
+  CLAUDE.md (locked) permits plain CSS — Tailwind is the least-consequential,
+  swappable choice and the package is intentionally absent (Plan 05-03). These
+  custom properties are the UI Design Contract's palette / spacing / typography,
+  exposed under `:root` so the hand-authored Svelte components can bind to them
+  via plain `var(--…)` references. The base `:root` IS the dark theme — there is
+  no light theme in M1.
+*/
+:root {
+	color-scheme: dark;
+
+	/* ── Color — dark-first tactical palette (UI-SPEC ## Color, 60/30/10) ── */
+	--color-dominant: #0b0f14; /* page / panel fill (60%) */
+	--color-secondary: #151b23; /* cards, headers, paste box (30%) */
+	--color-border: #243040; /* 1px hairline dividers / card borders */
+	--color-text: #d7dee6; /* primary text */
+	--color-muted: #7e8a99; /* labels, secondary notes, empty-state */
+	--color-accent: #3fb68b; /* signal green — reserved (10%) */
+	--color-destructive: #d8604c; /* rejection / casualty / qty 0 */
+	--color-warning: #d9a441; /* suppressed / low-supply flags */
+
+	/* ── Typography — mono for all data, sans for prose only (UI-SPEC ## Typography) ── */
+	--font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+	--font-sans: ui-sans-serif, system-ui;
+
+	/* ── Spacing — 8-point scale (UI-SPEC ## Spacing Scale) ── */
+	--spacing-xs: 4px;
+	--spacing-sm: 8px;
+	--spacing-md: 16px;
+	--spacing-lg: 24px;
+	--spacing-xl: 32px;
+	--spacing-2xl: 48px;
+	--spacing-3xl: 64px;
+}
+
+/*
+  Global reset: zero the browser-default body margin + padding and adopt
+  border-box sizing so the dominant slate fills the full viewport with no white
+  border. `body` explicitly carries the dark surface, primary text, and the sans
+  stack so a component that declares nothing already sits on the correct
+  dominant slate with readable prose — and no white page canvas shows through.
+*/
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	min-height: 100vh;
+	background: var(--color-dominant);
+	color: var(--color-text);
+	font-family: var(--font-sans);
+}
+
+.tabular-nums {
+	font-variant-numeric: tabular-nums;
+}

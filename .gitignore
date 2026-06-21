@@ -1,0 +1,38 @@
+node_modules
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+# vite-pwa dev-mode service worker output
+/dev-dist
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Test / coverage
+/coverage
+/test-results
+/.vitest-attachments
+**/__screenshots__
+/playwright-report
+/blob-report
+/playwright/.cache
+
+# Claude Code local (env-specific) settings + worktree hooks
+.claude/settings.local.json
+.claude/hooks/

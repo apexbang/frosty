@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Frosty">
+  <rect width="512" height="512" fill="#0b0f14"/>
+  <!-- A terse tactical snowflake / compass mark in the locked accent green. -->
+  <g stroke="#3fb68b" stroke-width="20" stroke-linecap="round" fill="none">
+    <line x1="256" y1="96" x2="256" y2="416"/>
+    <line x1="96" y1="256" x2="416" y2="256"/>
+    <line x1="143" y1="143" x2="369" y2="369"/>
+    <line x1="369" y1="143" x2="143" y2="369"/>
+  </g>
+  <g stroke="#3fb68b" stroke-width="14" stroke-linecap="round" fill="none">
+    <!-- frosting barbs -->
+    <path d="M256 160 l-26 26 M256 160 l26 26"/>
+    <path d="M256 352 l-26 -26 M256 352 l26 -26"/>
+    <path d="M160 256 l26 -26 M160 256 l26 26"/>
+    <path d="M352 256 l-26 -26 M352 256 l-26 26"/>
+  </g>
+  <circle cx="256" cy="256" r="34" fill="#3fb68b"/>
+</svg>
